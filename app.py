@@ -211,8 +211,8 @@ def generate_html_content(reviews):
 
     for review in reviews:
         review_data = review.to_dict()
-        user_name = "Anonymous"
-        user_handle = "@anonymous"
+        user_name = review_data.get("user_name", "Anonymous")
+        user_handle = "@" + user_name.lower().replace(" ", "_")
         user_img = "https://cdn3.iconfinder.com/data/icons/avatars-15/64/_Ninja-2-512.png"
         review_text = review_data.get("review_text", "No review text")
         predicted_sentiment = "Positive" if review_data.get("predicted_sentiment", 0) == 1 else "Negative"
@@ -270,10 +270,11 @@ update_reviews_and_html()
 
 # Section for adding new reviews directly
 st.title("Share your thoughts")
+user_name = st.text_input("Your name:")
 new_review_text = st.text_area("Review this product : ")
 
 if st.button("Submit Review"):
-    if new_review_text:
+    if new_review_text and user_name:
         # Preprocess the input text
         cleaned_text = cleanstr(new_review_text)
         cleaned_text = remove_stopwords(cleaned_text)
@@ -293,6 +294,7 @@ if st.button("Submit Review"):
 
         # Save the new review to Firestore
         new_review_data = {
+            "user_name": user_name,
             "review_text": new_review_text,
             "predicted_sentiment": int(prediction),
             "timestamp": timestamp,
@@ -304,4 +306,4 @@ if st.button("Submit Review"):
         # Rerun the app to update the content
         st.experimental_rerun()
     else:
-        st.error("Please enter a review text.")
+        st.error("Please enter both your name and review text.")
