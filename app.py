@@ -197,7 +197,7 @@ def generate_html_content(reviews):
     </head>
     <body>
         <section id="header">
-          <img src="https://www.ultrapc.ma/24601-large_default/msi-pulse-15-b13vgk-i9-13900h-32gb-1tb-ssd-rtx4070-8gb-156-165hz-ips-qhd.jpg" alt="Product Image">
+          <img src="https://nextlevelpc.ma/wp-content/uploads/2023/11/MSI-THIN-GF63-12UCX-NEXT-LEVEL-PC.webp" alt="Product Image">
         </section>
         <section id="testimonials">
           <div class="testimonial-heading">
